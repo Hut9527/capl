@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.PersonKaoQinRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.PersonKaoQinRecord" >
+    <id column="pkqid" property="pkqid" jdbcType="BIGINT" />
+    <result column="personId" property="personid" jdbcType="INTEGER" />
+    <result column="shiji_worktime" property="shijiWorktime" jdbcType="REAL" />
+    <result column="kq_time" property="kqTime" jdbcType="TIMESTAMP" />
+    <result column="remark1" property="remark1" jdbcType="NVARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="NVARCHAR" />
+    <result column="flag" property="flag" jdbcType="NVARCHAR" />
+    <association property="personsInfo" javaType="com.sunjays.capl.entity.PersonsInfo">
+    	<id column="Id" property="id"/>
+		<result column="Name" property="name" />
+		<result column="JobNumber" property="jobnumber"/>
+		<result column="Company" property="company"/>
+		<result column="OnTime" property="ontime"/>
+		<result column="OffTime" property="offtime"/>
+    </association>
+    <association property="zoneInfo" javaType="com.sunjays.capl.entity.ZoneInfo">
+    	<id column="Id" property="id"/>
+		<result column="Remark" property="remark" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pkqid, personId, shiji_worktime, kq_time, remark1, remark2, flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PersonKaoQinRecord
+    where pkqid = #{pkqid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from PersonKaoQinRecord
+    where pkqid = #{pkqid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.PersonKaoQinRecord" >
+    insert into PersonKaoQinRecord (personId, shiji_worktime, 
+      kq_time, remark1, remark2, 
+      flag)
+    values (#{personid,jdbcType=INTEGER}, #{shijiWorktime,jdbcType=REAL}, 
+      #{kqTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=NVARCHAR}, #{remark2,jdbcType=NVARCHAR}, 
+      #{flag,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.PersonKaoQinRecord" >
+    insert into PersonKaoQinRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pkqid != null" >
+        pkqid,
+      </if>
+      <if test="personid != null" >
+        personId,
+      </if>
+      <if test="shijiWorktime != null" >
+        shiji_worktime,
+      </if>
+      <if test="kqTime != null" >
+        kq_time,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pkqid != null" >
+        #{pkqid,jdbcType=BIGINT},
+      </if>
+      <if test="personid != null" >
+        #{personid,jdbcType=INTEGER},
+      </if>
+      <if test="shijiWorktime != null" >
+        #{shijiWorktime,jdbcType=REAL},
+      </if>
+      <if test="kqTime != null" >
+        #{kqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.PersonKaoQinRecord" >
+    update PersonKaoQinRecord
+    <set >
+      <if test="personid != null" >
+        personId = #{personid,jdbcType=INTEGER},
+      </if>
+      <if test="shijiWorktime != null" >
+        shiji_worktime = #{shijiWorktime,jdbcType=REAL},
+      </if>
+      <if test="kqTime != null" >
+        kq_time = #{kqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where pkqid = #{pkqid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.PersonKaoQinRecord" >
+    update PersonKaoQinRecord
+    set personId = #{personid,jdbcType=INTEGER},
+      shiji_worktime = #{shijiWorktime,jdbcType=REAL},
+      kq_time = #{kqTime,jdbcType=TIMESTAMP},
+      remark1 = #{remark1,jdbcType=NVARCHAR},
+      remark2 = #{remark2,jdbcType=NVARCHAR},
+      flag = #{flag,jdbcType=NVARCHAR}
+    where pkqid = #{pkqid,jdbcType=BIGINT}
+  </update>
+    <select id="selectPersonRecordByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT 
+     
+     p.JobNumber jobnumber,
+     p.Name name,
+     p.Company company,p.OnTime ontime,p.OffTime offtime,
+	pk.pkqid,pk.remark1,pk.remark2,pk.kq_time,
+	zi.Remark remark,
+	pk.shiji_worktime
+		from PersonKaoQinRecord pk 
+		INNER JOIN PersonsInfo p on pk.personId=p.Id
+		INNER JOIN ZUClink zc ON zc.U_id=p.Id 
+		INNER JOIN ZoneInfo zi on zi.Id=zc.Z_id 
+	 where 1=1
+    <if test="kqtime != null and kqtime !=''"  >
+        and pk.kq_time = #{kqtime}
+    </if>
+    <if test="company != null and company != ''" >
+       and p.Company=#{company}
+    </if>
+    <if test="perinfoname != null and perinfoname !=''"  >
+        and p.Name = #{perinfoname}
+    </if>
+  </select>
+</mapper>

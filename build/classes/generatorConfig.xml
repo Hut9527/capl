@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<classPathEntry location="G:\workspace\sqljdbc4.jar" /> 
+  <context id="context1" >
+  		<commentGenerator>  
+            <property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->  
+            <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳 -->  
+        </commentGenerator>
+        
+     <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" connectionURL="jdbc:sqlserver://123.57.177.188:8899;DatabaseName=VehicleLocation" userId="admin_login" password="admin.secret.64" />
+    
+    <javaModelGenerator targetPackage="com.sunjays.capl.entity" targetProject="capl/src" />
+    
+    <sqlMapGenerator targetPackage="com.sunjays.capl.entity" targetProject="capl/src" />
+    
+    <javaClientGenerator targetPackage="com.sunjays.capl.entity" targetProject="capl/src" type="XMLMAPPER" />
+     
+	<table domainObjectName="VehicleInfo" tableName="VehicleInfo" enableCountByExample="true" enableUpdateByExample="true"  
+            enableDeleteByExample="true" enableSelectByExample="true"  
+            selectByExampleQueryId="true">
+    </table> 
+    <!-- <table domainObjectName="ZoneName" tableName="ZoneName" enableCountByExample="true" enableUpdateByExample="true"  
+            enableDeleteByExample="true" enableSelectByExample="true"  
+            selectByExampleQueryId="true">
+    </table>  -->
+  </context>
+</generatorConfiguration>

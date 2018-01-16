@@ -1,0 +1,42 @@
+package com.sunjays.capl.entity.attendancetable;
+
+public class Cartable6 {
+	
+	private String vehviolatdata;//车_违章类型
+	private String vehviolatvehicle;//车_违章车牌号
+	private String vehviolatcompany;//车_违章车单位
+	private String vehviolattime;//车_违章时间
+	
+	public String getVehviolattime() {
+		return vehviolattime;
+	}
+	public void setVehviolattime(String vehviolattime) {
+		this.vehviolattime = vehviolattime;
+	}
+	public String getVehviolatdata() {
+		return vehviolatdata;
+	}
+	public void setVehviolatdata(String vehviolatdata) {
+		this.vehviolatdata = vehviolatdata;
+	}
+	public String getVehviolatvehicle() {
+		return vehviolatvehicle;
+	}
+	public void setVehviolatvehicle(String vehviolatvehicle) {
+		this.vehviolatvehicle = vehviolatvehicle;
+	}
+	public String getVehviolatcompany() {
+		return vehviolatcompany;
+	}
+	public void setVehviolatcompany(String vehviolatcompany) {
+		this.vehviolatcompany = vehviolatcompany;
+	}
+	@Override
+	public String toString() {
+		return "Cartable6 [vehviolatdata=" + vehviolatdata + ", vehviolatvehicle=" + vehviolatvehicle
+				+ ", vehviolatcompany=" + vehviolatcompany + "]";
+	}
+	
+	
+
+}

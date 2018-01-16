@@ -1,0 +1,171 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "寰蒋闆呴粦";
+}
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	display: block;
+}
+img {
+	border: none;
+	display: block;
+}
+
+@media (min-width: 1670px) and (max-width: 1920px) { 
+	.bgrond-main{
+		margin-top:70px; 
+	}
+}
+@media (min-width: 1500px) and (max-width: 1670px) { 
+	.bgrond-main{
+		margin-top:40px; 
+	}
+}
+.bgrond{
+	position: relative;
+	min-height:768px; 
+	overflow: hidden;
+	background-image: url(../img/bj.jpg);
+
+}
+.bgrond-main-top{
+	width: 1160px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 18px;
+}
+.bgrond-logo{
+	background-image: url(../img/logoo.png);
+	float: left;
+	width: 320px;
+	height: 96px;
+}
+.bgrond-main-top p{
+	font-size: 32px;
+	float: right;
+	height: 36px;
+	line-height: 36px;
+	color: #ffffff;
+	letter-spacing: 2px;
+	margin:40px 0 0 20px;
+	color: #333;
+}
+.bgrond-main-yonghu{
+	float: right;
+	overflow: hidden;
+	margin-top:41px;
+}
+.bgrond-main-yonghu li{
+	float: left;
+	margin-left: 10px;
+}
+.bgrond-main-yonghu li a{
+	color: white;
+	font-size: 18px;
+}
+.bgrond-main-yonghu li img{
+	display: block;
+	width: 16px;
+	height: 16px;
+	font-size: 0;
+	padding-top:4px;
+}
+.bgrond-main-yonghu .bgrond-main-yonghu-03{
+	margin-left: 4px;
+}
+/*涓儴妯″潡寮�濮�*/
+.bgrond-cont{
+	overflow: hidden;
+	width: 1114px;
+	margin:20px auto;
+}
+.bgrond-cont-02,.bgrond-cont-01,.bgrond-cont-01 img,.bgrond-cont-02 img{
+	width: 358px;
+	height: 150px;
+}
+.bgrond-cont-01{
+   	float: left;
+   	margin-left: 20px;
+   	overflow: hidden;
+   	position: relative;
+}
+.bgrond-cont-01:hover img{
+	transform: scale(1.04);
+}
+.bgrond-cont-02:hover img{
+	transform: scale(1.04);
+}
+.bgrond-cont-02 img,.bgrond-cont-01 img{
+	display: block;
+	transition: all 0.3s;
+}
+.bgrond-cont-02 {
+	margin-top:10px;
+	overflow: hidden;
+	position: relative;
+}
+.bgrond-cont-dd{
+	float: left;
+	font-size: 0;
+}
+.bgrond-cont-03,.bgrond-cont-03 img{
+	width: 358px;
+	height: 310px;
+}
+.bgrond-cont-03,.bgrond-cont-top{
+	margin-top:10px;
+}
+.bgrond-cont-fz{
+	margin-left: 20px;
+}
+.bgrond-cont-01-fz,.bgrond-cont-01-fz img{
+	width: 358px;
+	height: 150px;
+}
+/*鍚庢坊閬僵灞�*/
+/*#bgrondct-01 div,#bgrondct-09 div,#bgrondct-06 div,#bgrondct-02 div,#bgrondct-03 div,#bgrondct-04 div,#bgrondct-05 div,#bgrondct-07 div,#bgrondct-08 div,#bgrondct-10 div{
+	width: 358px;
+	height: 150px;
+	background:#292421;
+	position: absolute;
+	top:0;
+	left: 0;
+	display: none;
+	-khtml-opacity:0.8;
+	-moz-opacity:0.8;
+	filter:alpha(opacity=80);
+	filter:"alpha(opacity=80)";
+	opacity:0.8; 
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80)
+}*/
+#bgrondct-06 div{
+	height: 310px;
+}
+#bgrondct-09 div{
+	width: 736px;
+}
+/*涓儴妯″潡缁撴潫*/
+/*灏鹃儴鍚堜綔*/
+.footer-par{
+	width: 100%;
+	position: absolute;
+	bottom: 18px;
+	left: 0;
+}
+.footer-par p{
+	color: white;
+	font-size: 14px;
+	width: 780px;
+	margin: 0 auto;
+}
+.footer-par p span{
+	background-image: url(../img/sunjays.png);
+	display: inline-block;
+	font-size: 0;
+	width: 91px;
+	height: 13px;
+}

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.ZoneInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.ZoneInfo" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="wkId" property="wkid" jdbcType="INTEGER" />
+    <result column="GetTime" property="gettime" jdbcType="TIMESTAMP" />
+    <result column="GPS1" property="gps1" jdbcType="VARCHAR" />
+    <result column="GPS2" property="gps2" jdbcType="VARCHAR" />
+    <result column="GPS3" property="gps3" jdbcType="VARCHAR" />
+    <result column="GPS4" property="gps4" jdbcType="VARCHAR" />
+    <result column="GPS5" property="gps5" jdbcType="VARCHAR" />
+    <result column="GPS6" property="gps6" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="Remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, wkId, GetTime, GPS1, GPS2, GPS3, GPS4, GPS5, GPS6, Remark, flag, Remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.ZoneInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ZoneInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ZoneInfo
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ZoneInfo
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.ZoneInfoExample" >
+    delete from ZoneInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.ZoneInfo" >
+    insert into ZoneInfo (Id, wkId, GetTime, 
+      GPS1, GPS2, GPS3, GPS4, 
+      GPS5, GPS6, Remark, 
+      flag, Remark2)
+    values (#{id,jdbcType=INTEGER}, #{wkid,jdbcType=INTEGER}, #{gettime,jdbcType=TIMESTAMP}, 
+      #{gps1,jdbcType=VARCHAR}, #{gps2,jdbcType=VARCHAR}, #{gps3,jdbcType=VARCHAR}, #{gps4,jdbcType=VARCHAR}, 
+      #{gps5,jdbcType=VARCHAR}, #{gps6,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=INTEGER}, #{remark2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.ZoneInfo" >
+    insert into ZoneInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="wkid != null" >
+        wkId,
+      </if>
+      <if test="gettime != null" >
+        GetTime,
+      </if>
+      <if test="gps1 != null" >
+        GPS1,
+      </if>
+      <if test="gps2 != null" >
+        GPS2,
+      </if>
+      <if test="gps3 != null" >
+        GPS3,
+      </if>
+      <if test="gps4 != null" >
+        GPS4,
+      </if>
+      <if test="gps5 != null" >
+        GPS5,
+      </if>
+      <if test="gps6 != null" >
+        GPS6,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="remark2 != null" >
+        Remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wkid != null" >
+        #{wkid,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gps1 != null" >
+        #{gps1,jdbcType=VARCHAR},
+      </if>
+      <if test="gps2 != null" >
+        #{gps2,jdbcType=VARCHAR},
+      </if>
+      <if test="gps3 != null" >
+        #{gps3,jdbcType=VARCHAR},
+      </if>
+      <if test="gps4 != null" >
+        #{gps4,jdbcType=VARCHAR},
+      </if>
+      <if test="gps5 != null" >
+        #{gps5,jdbcType=VARCHAR},
+      </if>
+      <if test="gps6 != null" >
+        #{gps6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.ZoneInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ZoneInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ZoneInfo
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wkid != null" >
+        wkId = #{record.wkid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gettime != null" >
+        GetTime = #{record.gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gps1 != null" >
+        GPS1 = #{record.gps1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps2 != null" >
+        GPS2 = #{record.gps2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps3 != null" >
+        GPS3 = #{record.gps3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps4 != null" >
+        GPS4 = #{record.gps4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps5 != null" >
+        GPS5 = #{record.gps5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps6 != null" >
+        GPS6 = #{record.gps6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark2 != null" >
+        Remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ZoneInfo
+    set Id = #{record.id,jdbcType=INTEGER},
+      wkId = #{record.wkid,jdbcType=INTEGER},
+      GetTime = #{record.gettime,jdbcType=TIMESTAMP},
+      GPS1 = #{record.gps1,jdbcType=VARCHAR},
+      GPS2 = #{record.gps2,jdbcType=VARCHAR},
+      GPS3 = #{record.gps3,jdbcType=VARCHAR},
+      GPS4 = #{record.gps4,jdbcType=VARCHAR},
+      GPS5 = #{record.gps5,jdbcType=VARCHAR},
+      GPS6 = #{record.gps6,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER},
+      Remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.ZoneInfo" >
+    update ZoneInfo
+    <set >
+      <if test="wkid != null" >
+        wkId = #{wkid,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null" >
+        GetTime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gps1 != null" >
+        GPS1 = #{gps1,jdbcType=VARCHAR},
+      </if>
+      <if test="gps2 != null" >
+        GPS2 = #{gps2,jdbcType=VARCHAR},
+      </if>
+      <if test="gps3 != null" >
+        GPS3 = #{gps3,jdbcType=VARCHAR},
+      </if>
+      <if test="gps4 != null" >
+        GPS4 = #{gps4,jdbcType=VARCHAR},
+      </if>
+      <if test="gps5 != null" >
+        GPS5 = #{gps5,jdbcType=VARCHAR},
+      </if>
+      <if test="gps6 != null" >
+        GPS6 = #{gps6,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remark2 != null" >
+        Remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.ZoneInfo" >
+    update ZoneInfo
+    set wkId = #{wkid,jdbcType=INTEGER},
+      GetTime = #{gettime,jdbcType=TIMESTAMP},
+      GPS1 = #{gps1,jdbcType=VARCHAR},
+      GPS2 = #{gps2,jdbcType=VARCHAR},
+      GPS3 = #{gps3,jdbcType=VARCHAR},
+      GPS4 = #{gps4,jdbcType=VARCHAR},
+      GPS5 = #{gps5,jdbcType=VARCHAR},
+      GPS6 = #{gps6,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      Remark2 = #{remark2,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询全部信息 -->
+  <select id="selectAll" resultType="com.sunjays.capl.entity.ZoneVo">
+  	select a.Id,b.wkName,a.Remark,a.Remark2,a.flag,
+  	a.GetTime,a.GPS1,a.GPS2,a.GPS3,a.GPS4,a.GPS5,a.GPS6 
+  	from ZoneInfo a JOIN ZoneName b on a.wkId = b.wkId
+  </select>
+  
+  <!-- 根据车牌查询活动区域信息 -->
+  <select id="selectByVehicle" parameterType="java.lang.String" 
+  resultType="com.sunjays.capl.entity.ZoneInfo">
+  	select z.Id,z.wkId,z.GetTime,z.GPS1,z.GPS2,z.GPS3,z.GPS4,z.GPS5,z.GPS6,
+  	z.Remark,z.flag 
+ 	from ZoneInfo z,VehicleInfo v,ZUClink zuc
+  	where z.Id = zuc.Z_id
+	and v.Vehicle = #{vehicle,jdbcType=VARCHAR}
+	and v.Id = zuc.C_id
+  	
+  </select>
+  
+  <select id="selectByName" parameterType="java.lang.String"
+  resultType="com.sunjays.capl.entity.ZoneInfo">
+  
+  	select z.Id,z.wkId,z.GetTime,z.GPS1,z.GPS2,z.GPS3,z.GPS4,z.GPS5,z.GPS6,
+  	z.Remark,z.flag 
+ 	from ZoneInfo z,PersonsInfo p,ZUClink zuc
+  	where z.Id = zuc.Z_id
+  	and p.Name = #{name,jdbcType=VARCHAR}
+  	and p.Id = zuc.U_id
+  	
+  </select>
+  
+</mapper>

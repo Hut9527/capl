@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.PersonsInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sunjays.capl.entity.PersonsInfo">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="Name" property="name" jdbcType="NVARCHAR" />
+		<result column="Sex" property="sex" jdbcType="NVARCHAR" />
+		<result column="DevId" property="devid" jdbcType="NVARCHAR" />
+		<result column="GetTime" property="gettime" jdbcType="TIMESTAMP" />
+		<result column="SIMNumber" property="simnumber" jdbcType="NVARCHAR" />
+		<result column="Company" property="company" jdbcType="NVARCHAR" />
+		<result column="Phone" property="phone" jdbcType="NVARCHAR" />
+		<result column="Remark" property="remark" jdbcType="NVARCHAR" />
+		<result column="Age" property="age" jdbcType="INTEGER" />
+		<result column="Address" property="address" jdbcType="NVARCHAR" />
+		<result column="JobNumber" property="jobnumber" jdbcType="NVARCHAR" />
+		<result column="Zone" property="zone" jdbcType="NVARCHAR" />
+		<result column="OnTime" property="ontime" jdbcType="NVARCHAR" />
+		<result column="OffTime" property="offtime" jdbcType="NVARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, Name, Sex, DevId, GetTime, SIMNumber, Company, Phone,
+		Remark, Age,
+		Address, JobNumber , OnTime , OffTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.sunjays.capl.entity.PersonsInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from PersonsInfo
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		p.Id,p.Name,p.Sex,zi.id as
+		zone,p.Devid,p.GetTime,p.SIMNumber,p.Company,p.Phone,
+		p.Remark,p.Age,p.Address,p.JobNumber,p.OnTime,p.OffTime
+		from PersonsInfo p,ZoneInfo zi,ZUClink zuc where p.Id = #{id,jdbcType=INTEGER} and p.Id
+		= zuc.U_id and zuc.Z_id = zi.Id
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		PersonsInfo
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.sunjays.capl.entity.PersonsInfoExample">
+		delete from PersonsInfo
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.sunjays.capl.entity.PersonsInfo">
+		insert into PersonsInfo (
+		Name, Sex,
+		DevId, GetTime, SIMNumber,
+		Company, Phone, Remark,
+		Age,
+		Address, JobNumber,OnTime,OffTime)
+		values (
+		#{name,jdbcType=NVARCHAR},
+		#{sex,jdbcType=NVARCHAR},
+		#{devid,jdbcType=NVARCHAR}, #{gettime,jdbcType=TIMESTAMP},
+		#{simnumber,jdbcType=NVARCHAR},
+		#{company,jdbcType=NVARCHAR},
+		#{phone,jdbcType=NVARCHAR},
+		#{remark,jdbcType=NVARCHAR},
+		#{age,jdbcType=INTEGER}, #{address,jdbcType=NVARCHAR},
+		#{jobnumber,jdbcType=NVARCHAR},#{ontime,jdbcType=NVARCHAR},
+		#{offtime,jdbcType=NVARCHAR})
+	</insert>
+	<insert id="insertSelective" useGeneratedKeys="true"
+		keyProperty="id" parameterType="com.sunjays.capl.entity.PersonsInfo">
+		insert into PersonsInfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+			<if test="sex != null">
+				Sex,
+			</if>
+			<if test="devid != null">
+				DevId,
+			</if>
+			<if test="gettime != null">
+				GetTime,
+			</if>
+			<if test="simnumber != null">
+				SIMNumber,
+			</if>
+			<if test="company != null">
+				Company,
+			</if>
+			<if test="phone != null">
+				Phone,
+			</if>
+			<if test="remark != null">
+				Remark,
+			</if>
+			<if test="age != null">
+				Age,
+			</if>
+			<if test="address != null">
+				Address,
+			</if>
+			<if test="jobnumber != null">
+				JobNumber,
+			</if>
+			<if test="ontime != null">
+				OnTime,
+			</if>
+			<if test="offtime != null">
+				OffTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=NVARCHAR},
+			</if>
+			<if test="devid != null">
+				#{devid,jdbcType=NVARCHAR},
+			</if>
+			<if test="gettime != null">
+				#{gettime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="simnumber != null">
+				#{simnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=NVARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=NVARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=NVARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=NVARCHAR},
+			</if>
+			<if test="jobnumber != null">
+				#{jobnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="ontime != null">
+				#{ontime,jdbcType=NVARCHAR},
+			</if>
+			<if test="offtime != null">
+				#{offtime,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.sunjays.capl.entity.PersonsInfoExample"
+		resultType="java.lang.Integer">
+		select count(*) from PersonsInfo
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<!--查询所有录入人员信息 -->
+	<select id="selectRyxxAll" resultMap="BaseResultMap">
+		select
+		p.Id,p.Name,p.Sex,zi.Remark as
+		zone,p.Devid,p.GetTime,p.SIMNumber,p.Company,
+		p.Phone,p.Remark,p.Age,p.Address,p.JobNumber,p.OnTime,p.OffTime
+		from PersonsInfo p,ZoneInfo zi,ZUClink zuc where p.Id = zuc.U_id and
+		zuc.Z_id = zi.Id
+	</select>
+	<!--通过工号查询人员信息 -->
+	<select id="selectPersonByJobNumber" parameterType="java.lang.String"
+		resultType="com.sunjays.capl.entity.PersonsInfo">
+		select * from PersonsInfo where JobNumber =
+		#{jobnumber,jdbcType=NVARCHAR}
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update PersonsInfo
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.name != null">
+				Name = #{record.name,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.sex != null">
+				Sex = #{record.sex,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.devid != null">
+				DevId = #{record.devid,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.gettime != null">
+				GetTime = #{record.gettime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.simnumber != null">
+				SIMNumber = #{record.simnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.company != null">
+				Company = #{record.company,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.phone != null">
+				Phone = #{record.phone,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.remark != null">
+				Remark = #{record.remark,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.age != null">
+				Age = #{record.age,jdbcType=INTEGER},
+			</if>
+			<if test="record.address != null">
+				Address = #{record.address,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.jobnumber != null">
+				JobNumber = #{record.jobnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.ontime != null">
+				OnTime = #{record.ontime,jdbcType=NVARCHAR},
+			</if>
+			<if test="record.offtime != null">
+				OffTime = #{record.offtime,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update PersonsInfo
+		set Id = #{record.id,jdbcType=INTEGER},
+		Name =
+		#{record.name,jdbcType=NVARCHAR},
+		Sex =
+		#{record.sex,jdbcType=NVARCHAR},
+		DevId =
+		#{record.devid,jdbcType=NVARCHAR},
+		GetTime =
+		#{record.gettime,jdbcType=TIMESTAMP},
+		SIMNumber =
+		#{record.simnumber,jdbcType=NVARCHAR},
+		Company =
+		#{record.company,jdbcType=NVARCHAR},
+		Phone =
+		#{record.phone,jdbcType=NVARCHAR},
+		Remark =
+		#{record.remark,jdbcType=NVARCHAR},
+		Age =
+		#{record.age,jdbcType=INTEGER},
+		Address =
+		#{record.address,jdbcType=NVARCHAR}
+		JobNumber =
+		#{record.jobnumber,jdbcType=NVARCHAR}
+		OnTime =
+		#{record.ontime,jdbcType=NVARCHAR}
+		OffTime =
+		#{record.offtime,jdbcType=NVARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.PersonsInfo">
+		update PersonsInfo
+		<set>
+			<if test="name != null">
+				Name = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="sex != null">
+				Sex = #{sex,jdbcType=NVARCHAR},
+			</if>
+			<if test="devid != null">
+				DevId = #{devid,jdbcType=NVARCHAR},
+			</if>
+			<if test="gettime != null">
+				GetTime = #{gettime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="simnumber != null">
+				SIMNumber = #{simnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="company != null">
+				Company = #{company,jdbcType=NVARCHAR},
+			</if>
+			<if test="phone != null">
+				Phone = #{phone,jdbcType=NVARCHAR},
+			</if>
+			<if test="remark != null">
+				Remark = #{remark,jdbcType=NVARCHAR},
+			</if>
+			<if test="age != null">
+				Age = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				Address = #{address,jdbcType=NVARCHAR},
+			</if>
+			<if test="jobnumber != null">
+				JobNumber = #{jobnumber,jdbcType=NVARCHAR},
+			</if>
+			<if test="ontime != null">
+				OnTime = #{ontime,jdbcType=NVARCHAR},
+			</if>
+			<if test="offtime != null">
+				OffTime = #{offtime,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.PersonsInfo">
+		update PersonsInfo
+		set Name = #{name,jdbcType=NVARCHAR},
+		Sex = #{sex,jdbcType=NVARCHAR},
+		DevId = #{devid,jdbcType=NVARCHAR},
+		GetTime =
+		#{gettime,jdbcType=TIMESTAMP},
+		SIMNumber =
+		#{simnumber,jdbcType=NVARCHAR},
+		Company = #{company,jdbcType=NVARCHAR},
+		Phone = #{phone,jdbcType=NVARCHAR},
+		Remark =
+		#{remark,jdbcType=NVARCHAR},
+		Age = #{age,jdbcType=INTEGER},
+		Address =
+		#{address,jdbcType=NVARCHAR}
+		JobNumber = #{jobnumber,jdbcType=NVARCHAR}
+		OnTime = #{ontime,jdbcType=NVARCHAR}
+		OffTime = #{offtime,jdbcType=NVARCHAR}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectAllPersonDevid" resultMap="BaseResultMap">
+		select DevId,Id from PersonsInfo
+	</select>
+</mapper>

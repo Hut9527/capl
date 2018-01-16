@@ -1,0 +1,238 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>施工车辆及人员定位管理</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="shortcut icon" href="${path }/static/img/prolog.ico"/>
+    <!-- bootstrap 3.0.2 -->
+    <link href="${path }/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- font Awesome -->
+    <link href="${path }/static/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="${path }/static/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="${path }/static/css/query.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="${path }/static/fontsl/iconfont.css">
+  
+    <style  type="text/css">
+        .skin-blue .navbar{
+            background:#ef9c00;
+        }
+        .skin-blue .logo{
+            background:#d08800;
+        }
+        .box{
+            border-top: 2px solid #d08800;
+        }
+   
+        body{
+        padding-top:50px;}
+        #huangzhuang{
+            position: fixed;
+            right: 108px;
+            top: 6px;
+            z-index: 10000;
+            cursor: pointer;
+        }
+        #huangzhuang i{
+            font-size: 26px;
+             color: rgba(255, 255, 255, 0.8);
+        }
+        .footer-par{
+        	background:rgba(187,188,197,.6);
+        }
+        .footer-par p{
+        	width:500px;
+        }
+    </style>
+</head>
+<body class="skin-blue" style=" position: relative;">
+<!-- header logo: style can be found in header.less -->
+	<header class="header">
+		<%@ include file="/WEB-INF/public/header.jsp"%>
+	</header>
+	<!-- wrapper -->
+	<div class="wrapper row-offcanvas row-offcanvas-left">
+	    <!-- Left side column. contains the logo and sidebar -->
+	    <aside class="left-side sidebar-offcanvas">
+	        <%@ include file="/WEB-INF/public/left.jsp"%>
+	    </aside>
+	    <aside class="right-side">
+	    	<ul class="right-ul1">
+	            <c:forEach items="${menuList }" var="obj" varStatus="status">
+	            	<c:if test="${fn:contains(user.mainPri,obj.privilege)}">
+	            	<li><a href="${obj.URL }">${obj.MenuName }</a><i></i></li>
+	            	</c:if>
+	            </c:forEach>
+		    </ul>
+	        <iframe id="rightFrame"  name="rightFrame" scrolling="no" src="${path }/dd.do" frameborder="0" width="100%" onload="setIframeHeight(this)">
+        </iframe>
+	    </aside><!-- /.right-side -->
+	</div><!-- ./wrapper -->
+<!-- <footer class="navbar-fixed-bottom"></footer> -->
+<!-- 登录修改密码弹出框 -->
+    <div id="dialog2" style="width: 328px;">
+        <h4>修改密码</h4>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="condition">
+                    <form action="#" method="post" id="loginform">
+                        <div class="col-xs-12 choice">
+                            <div class="input-group text" style="width: 258px">
+                                <div class="input-group-btn seltit" style="width: 93px"><span>旧密码</span></div>
+                                <input id="oldpassword" type="text" name="oldpassword" placeholder="请输入..." class="form-control">
+                                <span class="del fa fa-times"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 choice">
+                            <div class="input-group text" style="width: 258px">
+                                <div class="input-group-btn seltit" style="width: 93px"><span>新密码</span></div>
+                                <input id="newpassword" type="text" name="newpassword" placeholder="请输入..." class="form-control"><span class="del fa fa-times"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 choice">
+                            <div class="input-group text" style="width: 258px">
+                                <div class="input-group-btn seltit" style="width: 93px"><span>确认新密码</span></div>
+                                <input id="newpassworda" type="text"  name="newpassworda" placeholder="请输入..." class="form-control"><span class="del fa fa-times"></span>
+                            </div>
+                        </div>
+                        <ul class="col-xs-12 eletcadd">
+                            <button type="button" onclick="updatePass()" class="btn btn-warning btn-lg"><i class="fa fa-fw fa-check-square"></i> 提 交</button>
+                            <button type="button" onclick="quxiao()" class="btn btn-danger btn-lg"><i class="fa fa-fw fa-times"></i> 取 消</button>
+                        </ul>
+                        <input type="hidden" id="userid" value="${admin.userid }">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dialogBg"></div>
+    <div id="huangzhuang"><i class="iconfont icon-clothes"></i></div>
+    
+<!-- Bootstrap -->
+
+  <!-- jQuery 2.0.2 -->
+	<script type="text/javascript" src="${path }/static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="${path}/static/jquery-validation/1.11.1/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="${path}/static/jquery-validation/1.11.1/messages_bs_zh.js"></script>
+	<script type="text/javascript" src="${path}/static/jquery-validation/1.11.1/jquery.validate.extend.js"></script>
+	<script type="text/javascript" src="${path}/static/layer/layer.js"></script>
+	<script type="text/javascript" src="${path }/static/js/bootstrap.min.js" ></script>
+<!-- AdminLTE App -->
+<script type="text/javascript" src="${path }/static/js/AdminLTE/app.js" ></script>
+<!--天气-->
+<script type="text/javascript" src="${path }/static/js/jquery.leoweather.min.js"></script>
+<script type="text/javascript">
+	function setIframeHeight(iframe) {
+	    if (iframe) {
+	    var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+	        if (iframeWin.document.body) {
+	        	iframe.height=0;
+	        	iframe.style.height=920+'px';
+	        	iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+	        	console.log(iframe.height);
+	        	iframe.style.height=iframe.height+'px';
+	        }
+	    }
+	}; 
+</script>
+<script type="text/javascript">
+function changePassword(){
+    $('#dialogBg').fadeIn(300);
+    $("#dialog2").center().show();
+}
+function quxiao() {
+	 $('#dialogBg').fadeOut(300);
+	 $("#dialog2").center().hide();
+}
+//提交表单
+function updatePass(){
+	var np = $("#oldpassword").val();
+	var npb = $("#newpassword").val();
+	var npa = $("#newpassworda").val();
+	var id = $("#userid").val();
+	var flag;
+	$.ajax({
+	    async: false,
+	    type: "POST",
+	    url: "${path}/login/selectByAdminId.do",
+	    dataType: "json",
+	    data: {oldpassword:np,userid:id},
+	    success: function (data) {
+	       if (data=="0") {
+	    	   flag=data;
+	    	   layer.tips('旧密码不正确', '#oldpassword', {
+		  			  tips: [2, "#78BA32"],
+		  			  tipsMore: true
+		  		});
+		  }
+	    }
+	  });
+	if (flag=="0") {
+		return;
+	}
+	if (npb==null||npb=="") {
+		layer.tips('请输入新密码', '#newpassword', {
+			  tips: [2, "#78BA32"],
+			  tipsMore: true
+		});
+		return;
+	}
+	
+	if (npa==null||npa=="") {
+		layer.tips('请输入确认新密码', '#newpassworda', {
+			  tips: [2, "#78BA32"],
+			  tipsMore: true
+		});
+		return;
+	}
+	if (npa!=npb) {
+		layer.tips('请重新输入确认密码', '#newpassworda', {
+			  tips: [2, "#78BA32"],
+			  tipsMore: true
+		});
+		return;
+	}
+	
+	$.ajax({
+   	   type: "POST",
+   	   url: "${path}/login/updatePassword.do",
+   	   data: {newpassword:npa,userid:id},
+   	   dataType:"json",
+   	   success: function(msg){
+   		  if(msg=='1'){
+   				layer.msg('修改成功', function(){
+ 				//关闭后的操作
+ 					window.location.href="${path}/login/logout.do"
+   			    });
+   		  }else{
+   				layer.msg('旧密码输入错误', function(){
+ 				//关闭后的操作
+ 				});
+   		  }
+   	   }
+	})
+	
+	
+}
+$(function(){
+    $('#huangzhuang').click(function(){
+        if($('body').hasClass('skin-black')){
+            $('body').addClass('skin-blue').removeClass('skin-black');
+            $('#huangzhuang i').css({color:'rgba(255, 255, 255, 0.8)'});
+        }else{
+            $('body').addClass('skin-black').removeClass('skin-blue');
+            $('#huangzhuang i').css({color:'#999999'});
+        }
+    })
+})
+
+</script>
+</body>
+</html>

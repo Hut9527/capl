@@ -1,0 +1,101 @@
+package com.sunjays.capl.web.controller;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.common.collect.Maps;
+import com.sunjays.capl.entity.UserInfo;
+import com.sunjays.capl.service.UserInfoService;
+import com.sunjays.capl.utils.CookieUtils;
+import com.sunjays.capl.utils.HttpClientUtil;
+import com.sunjays.capl.utils.JsonUtils;
+import com.sunjays.capl.utils.Md5Util;
+import com.sunjays.capl.web.common.Constants;
+
+@Controller
+@RequestMapping("login")
+public class UserLogin {
+	@Resource
+	private UserInfoService userInfoService;
+	
+	//SpringMvc拦截登录成功
+	@RequestMapping("/toIndex.do")
+	public String toIndex(Model model){
+		String json=HttpClientUtil.doPost(Constants.ALLPROJECT_URL);
+		List<Map<String,String>> list=JsonUtils.jsonToListMap(json);
+		model.addAttribute("menuList", list);
+		return "index";
+	}
+	
+	/**单点登录**/
+	
+	@RequestMapping(value = "/layout.do", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request,Model model) {
+		String token = CookieUtils.getCookieValue(request, "SJ_TOKEN");
+		Map<String,String> searchMap=Maps.newHashMap();
+		searchMap.put("token", token);
+		HttpClientUtil.doPost(Constants.LOGOUT_URL,searchMap);
+		return "redirect:"+Constants.LOGIN_URL;
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String doLogout(HttpServletRequest request,Model model) {
+		String token = CookieUtils.getCookieValue(request, "SJ_TOKEN");
+		Map<String,String> searchMap=Maps.newHashMap();
+		searchMap.put("token", token);
+		HttpClientUtil.doPost(Constants.LOGOUT_URL,searchMap);
+		return "redirect:"+Constants.LOGIN_URL;
+	}
+
+	/**
+	 * 表单验证修改密码
+	 * @return
+	 */
+	@RequestMapping("/selectByAdminId.do")
+	@ResponseBody
+	public String selectByAdminId(String oldpassword,Integer userid){
+		
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserid(userid);
+		UserInfo userI = userInfoService.selectUserByUserId(userInfo);
+		if (userI.getPassword().equals(Md5Util.MD5Encode(oldpassword))) {
+			return "1";
+		}
+		
+		return "0";
+	}
+	
+	/**
+	 * 修改密码
+	 * @return
+	 */
+	@RequestMapping("/updatePassword.do")
+	@ResponseBody
+	public String updatePassword(String newpassword,Integer userid){
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserid(userid);
+		userInfo.setPassword(Md5Util.MD5Encode(newpassword));
+		try {
+			userInfoService.updateUserInfo(userInfo);
+			return "1";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "0";
+		}
+	}
+	
+}

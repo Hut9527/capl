@@ -1,0 +1,26 @@
+/* 选择器格式为：html #layui_layer_skin文件夹名stylecss，这一点非常重要 */
+html #layui_layer_skin myskin{display:none; position: absolute; width:1989px;}
+body .skin-ext-myskin .layui-layer-title{height: 65px;background: #3e8af1;}
+/*body .skin-ext-myskin .layui-layer-ico{background: url(../../../images/checkbox_icon.png);}*/
+body .skin-ext-myskin .layui-layer-btn a{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

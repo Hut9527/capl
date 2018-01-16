@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.UserCarMaMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.UserCarMa" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="personname" property="personname" jdbcType="NVARCHAR" />
+    <result column="carnumber" property="carnumber" jdbcType="NVARCHAR" />
+    <result column="company" property="company" jdbcType="NVARCHAR" />
+    <result column="entertime" property="entertime" jdbcType="TIMESTAMP" />
+    <result column="gpsZB" property="gpszb" jdbcType="NVARCHAR" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, personname, carnumber, company, entertime, gpsZB, remark, flag, remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.UserCarMaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from UserCarMa
+    
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="starttime != null and starttime != ''">
+  		and entertime &gt;= #{starttime}
+  	</if>
+  	<if test="endtime != null and endtime != ''">
+  		and entertime &lt;= #{endtime}
+  	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from UserCarMa
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from UserCarMa
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.UserCarMaExample" >
+    delete from UserCarMa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.UserCarMa" >
+    insert into UserCarMa (id, personname, carnumber, 
+      company, entertime, gpsZB, 
+      remark, flag, remarks
+      )
+    values (#{id,jdbcType=INTEGER}, #{personname,jdbcType=NVARCHAR}, #{carnumber,jdbcType=NVARCHAR}, 
+      #{company,jdbcType=NVARCHAR}, #{entertime,jdbcType=TIMESTAMP}, #{gpszb,jdbcType=NVARCHAR}, 
+      #{remark,jdbcType=NVARCHAR}, #{flag,jdbcType=INTEGER}, #{remarks,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.UserCarMa" >
+    insert into UserCarMa
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="personname != null" >
+        personname,
+      </if>
+      <if test="carnumber != null" >
+        carnumber,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="entertime != null" >
+        entertime,
+      </if>
+      <if test="gpszb != null" >
+        gpsZB,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personname != null" >
+        #{personname,jdbcType=NVARCHAR},
+      </if>
+      <if test="carnumber != null" >
+        #{carnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=NVARCHAR},
+      </if>
+      <if test="entertime != null" >
+        #{entertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpszb != null" >
+        #{gpszb,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.UserCarMaExample" resultType="java.lang.Integer" >
+    select count(*) from UserCarMa
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update UserCarMa
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.personname != null" >
+        personname = #{record.personname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.carnumber != null" >
+        carnumber = #{record.carnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.entertime != null" >
+        entertime = #{record.entertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gpszb != null" >
+        gpsZB = #{record.gpszb,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update UserCarMa
+    set id = #{record.id,jdbcType=INTEGER},
+      personname = #{record.personname,jdbcType=NVARCHAR},
+      carnumber = #{record.carnumber,jdbcType=NVARCHAR},
+      company = #{record.company,jdbcType=NVARCHAR},
+      entertime = #{record.entertime,jdbcType=TIMESTAMP},
+      gpsZB = #{record.gpszb,jdbcType=NVARCHAR},
+      remark = #{record.remark,jdbcType=NVARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.UserCarMa" >
+    update UserCarMa
+    <set >
+      <if test="personname != null" >
+        personname = #{personname,jdbcType=NVARCHAR},
+      </if>
+      <if test="carnumber != null" >
+        carnumber = #{carnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=NVARCHAR},
+      </if>
+      <if test="entertime != null" >
+        entertime = #{entertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpszb != null" >
+        gpsZB = #{gpszb,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.UserCarMa" >
+    update UserCarMa
+    set personname = #{personname,jdbcType=NVARCHAR},
+      carnumber = #{carnumber,jdbcType=NVARCHAR},
+      company = #{company,jdbcType=NVARCHAR},
+      entertime = #{entertime,jdbcType=TIMESTAMP},
+      gpsZB = #{gpszb,jdbcType=NVARCHAR},
+      remark = #{remark,jdbcType=NVARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=NVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByVo" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.UserCarMa" >
+    select
+    *
+    from UserCarMa WHERE flag=#{flag}
+    <if test="personname != null and personname != ''">
+  		and personname = #{personname}
+  	</if>
+  	<if test="carnumber != null and carnumber != ''">
+  		and carnumber = #{carnumber}
+  	</if>
+  	<if test="company != null and company != ''">
+  		and company = #{company}
+  	</if>
+    <if test="starttime != null and starttime != ''">
+  		and entertime &gt;= #{starttime}
+  	</if>
+  	<if test="endtime != null and endtime != ''">
+  		and entertime &lt;= #{endtime}
+  	</if>
+  </select>
+</mapper>

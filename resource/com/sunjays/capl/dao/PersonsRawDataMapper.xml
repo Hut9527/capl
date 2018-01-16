@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.PersonsRawDataMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.PersonsRawData" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="DevId" property="devid" jdbcType="NVARCHAR" />
+    <result column="Longitude" property="longitude" jdbcType="DECIMAL" />
+    <result column="Latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="Heigh" property="heigh" jdbcType="DECIMAL" />
+    <result column="GetTime" property="gettime" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="SIMNumber" property="simnumber" jdbcType="NVARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, DevId, Longitude, Latitude, Heigh, GetTime, Remark, Name, SIMNumber, Phone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.PersonsRawDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from PersonsRawData
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PersonsRawData
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PersonsRawData
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.PersonsRawDataExample" >
+    delete from PersonsRawData
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.PersonsRawData" >
+    insert into PersonsRawData (Id, DevId, Longitude, 
+      Latitude, Heigh, GetTime, 
+      Remark, Name, SIMNumber, 
+      Phone)
+    values (#{id,jdbcType=INTEGER}, #{devid,jdbcType=NVARCHAR}, #{longitude,jdbcType=DECIMAL}, 
+      #{latitude,jdbcType=DECIMAL}, #{heigh,jdbcType=DECIMAL}, #{gettime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=NVARCHAR}, #{name,jdbcType=VARCHAR}, #{simnumber,jdbcType=NVARCHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.PersonsRawData" >
+    insert into PersonsRawData
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="devid != null" >
+        DevId,
+      </if>
+      <if test="longitude != null" >
+        Longitude,
+      </if>
+      <if test="latitude != null" >
+        Latitude,
+      </if>
+      <if test="heigh != null" >
+        Heigh,
+      </if>
+      <if test="gettime != null" >
+        GetTime,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="simnumber != null" >
+        SIMNumber,
+      </if>
+      <if test="phone != null" >
+        Phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="devid != null" >
+        #{devid,jdbcType=NVARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="heigh != null" >
+        #{heigh,jdbcType=DECIMAL},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="simnumber != null" >
+        #{simnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.PersonsRawDataExample" resultType="java.lang.Integer" >
+    select count(*) from PersonsRawData
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PersonsRawData
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.devid != null" >
+        DevId = #{record.devid,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        Longitude = #{record.longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.latitude != null" >
+        Latitude = #{record.latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.heigh != null" >
+        Heigh = #{record.heigh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gettime != null" >
+        GetTime = #{record.gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.name != null" >
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.simnumber != null" >
+        SIMNumber = #{record.simnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PersonsRawData
+    set Id = #{record.id,jdbcType=INTEGER},
+      DevId = #{record.devid,jdbcType=NVARCHAR},
+      Longitude = #{record.longitude,jdbcType=DECIMAL},
+      Latitude = #{record.latitude,jdbcType=DECIMAL},
+      Heigh = #{record.heigh,jdbcType=DECIMAL},
+      GetTime = #{record.gettime,jdbcType=TIMESTAMP},
+      Remark = #{record.remark,jdbcType=NVARCHAR},
+      Name = #{record.name,jdbcType=VARCHAR},
+      SIMNumber = #{record.simnumber,jdbcType=NVARCHAR},
+      Phone = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.PersonsRawData" >
+    update PersonsRawData
+    <set >
+      <if test="devid != null" >
+        DevId = #{devid,jdbcType=NVARCHAR},
+      </if>
+      <if test="longitude != null" >
+        Longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null" >
+        Latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="heigh != null" >
+        Heigh = #{heigh,jdbcType=DECIMAL},
+      </if>
+      <if test="gettime != null" >
+        GetTime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="simnumber != null" >
+        SIMNumber = #{simnumber,jdbcType=NVARCHAR},
+      </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.PersonsRawData" >
+    update PersonsRawData
+    set DevId = #{devid,jdbcType=NVARCHAR},
+      Longitude = #{longitude,jdbcType=DECIMAL},
+      Latitude = #{latitude,jdbcType=DECIMAL},
+      Heigh = #{heigh,jdbcType=DECIMAL},
+      GetTime = #{gettime,jdbcType=TIMESTAMP},
+      Remark = #{remark,jdbcType=NVARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      SIMNumber = #{simnumber,jdbcType=NVARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+ 	<!-- 查询每个人最后一个坐标 -->
+	<select id="selectByLastTime" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from PersonsRawData a where 
+		Id in (select min(Id) as id from PersonsRawData group by GetTime)
+		and not exists 
+		(select 1 from PersonsRawData b  where b.DevId = a.DevId and
+		b.GetTime > a.GetTime)
+	</select>  
+  
+	<!-- 查詢每個人最新坐標 -->
+	<select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from PersonsRawData where 
+		GetTime = #{time}
+	</select>	
+	
+	<!-- 根据Phone号查询 -->
+	<select id="selectByPhone" parameterType="com.sunjays.capl.entity.PersonsInfo"
+	resultMap="BaseResultMap">
+		
+		select
+		DISTINCT GetTime,Id, DevId, Longitude, Latitude, Remark, Name, SIMNumber, Phone
+		from PersonsRawData a where 1=1
+		
+		<if test="phone != null and phone != ''">
+			and a.Phone = #{phone}
+		</if>
+		
+		and GetTime = #{gettime}
+		
+	</select>
+	
+	<!-- 根据Phone查询最后一个 -->
+	<select id="selectByLastPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+		
+		select 
+		GetTime,Id, DevId, Longitude, Latitude, Remark, Name, SIMNumber, Phone
+		from PersonsRawData a where
+		a.Phone = #{phone} and 
+		Id in (select min(Id) as id from PersonsRawData group by GetTime)
+		and not exists
+		(select 1 from PersonsRawData b  where b.Phone = #{phone} and
+		b.GetTime > a.GetTime)
+	
+	</select>
+	
+	
+	<!-- 查询一个人的最新坐标 -->
+	<select id="selectByDevId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from PersonsRawData a where a.DevId = #{_parameter} and not exists
+		(select 1 from PersonsRawData b where b.DevId = #{_parameter} and
+		b.GetTime > a.GetTime)
+	</select>
+	<!-- 根据姓名和手机号模糊查询 -->
+	<select id="selectByPersons" resultMap="BaseResultMap"
+		parameterType="com.sunjays.capl.entity.PersonsInfo">
+		select
+			DISTINCT <include refid="Base_Column_List" />
+		from PersonsRawData a where
+		
+		<if test="name != null and name != '' ">
+			a.Name like concat(concat('%',#{name}),'%') and
+		</if>
+		
+		<if test="phone != null and phone != '' ">
+			a.Phone like concat(concat('%',#{phone}),'%') and
+		</if>
+		
+		not exists (select 1 from PersonsRawData b where
+		
+		<if test="name != null and name != '' ">
+			b.Name like concat(concat('%',#{name}),'%') and
+		</if>
+		
+		<if test="phone != null and phone != '' ">
+			b.Phone like concat(concat('%',#{phone}),'%') and
+		</if>
+		
+		b.GetTime > a.GetTime)
+	</select>
+	<!-- 模糊查询最新坐标 -->
+	<select id="selectByLike" resultMap="BaseResultMap"
+		parameterType="com.sunjays.capl.entity.PersonsInfo">
+		select DISTINCT b.Id,b.DevId,b.Longitude,b.Latitude,b.Heigh,b.GetTime,
+		b.Remark,b.Name,b.SIMNumber,b.Phone
+		from PersonsInfo a,PersonsRawData b,ZoneInfo zi,ZUClink zuc where 
+		a.DevId = b.DevId
+		<if test="name != null and name != '' ">
+			and a.Name like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="phone != null and phone != '' ">
+			and a.Phone like concat(concat('%',#{phone}),'%')
+		</if>
+		<if test="jobnumber != null and jobnumber != '' ">
+			and a.JobNumber like concat(concat('%',#{jobnumber}),'%')
+		</if>
+		<if test="company != null and company != '' ">
+			and a.Company like concat(concat('%',#{company}),'%')
+		</if>
+		<if test="zone != null and zone != '' ">
+			and zi.Remark like concat(concat('%',#{zone}),'%')
+			and zi.Id = zuc.Z_id
+			and a.Id = zuc.U_id
+		</if>
+		
+		and b.GetTime = #{gettime}
+	</select>
+	
+	<!-- 模糊查询最后一个坐标 -->
+	<select id="selectByLastLike" resultMap="BaseResultMap"
+		parameterType="com.sunjays.capl.entity.PersonsInfo">
+		select DISTINCT b.Id,b.DevId,b.Longitude,b.Latitude,b.Heigh,b.GetTime,
+		b.Remark,b.Name,b.SIMNumber,b.Phone
+		from PersonsInfo a,PersonsRawData b,ZoneInfo zi,ZUClink zuc where 
+		a.DevId = b.DevId
+		<if test="name != null and name != '' ">
+			and a.Name like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="phone != null and phone != '' ">
+			and a.Phone like concat(concat('%',#{phone}),'%')
+		</if>
+		<if test="jobnumber != null and jobnumber != '' ">
+			and a.JobNumber like concat(concat('%',#{jobnumber}),'%')
+		</if>
+		<if test="company != null and company != '' ">
+			and a.Company like concat(concat('%',#{company}),'%')
+		</if>
+		<if test="zone != null and zone != '' ">
+			and zi.Remark like concat(concat('%',#{zone}),'%')
+			and zi.Id = zuc.Z_id
+			and a.Id = zuc.U_id
+		</if>
+		and not EXISTS (
+		select 1 from PersonsRawData c where c.DevId = b.DevId and 
+		c.GetTime > b.GetTime)
+
+	</select>
+	
+	<!-- 根据姓名和时间查询坐标 -->
+	<select id="selectByVo" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.PersonsVo">
+		
+		select
+		<include refid="Base_Column_List" />
+		from PersonsRawData  where
+		name = #{name}
+		
+		and Id in (select min(Id) as id from PersonsRawData group by GetTime )
+		
+		<if test="starttime != null and starttime != ''">
+	  		and GetTime &gt; #{starttime}
+	  	</if>
+	  	<if test="overtime != null and overtime != ''">
+	  		and GetTime &lt; #{overtime}
+	  	</if>
+		
+	</select>
+  <!--  根据条件统计上班时间 -->
+  <select id="recordPersonKaoQinByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+  		Id
+  	from PersonsRawData where 1=1
+  	
+  	<if test="remark != null and remark != ''">
+  		and Remark = #{remark}
+  	</if>
+  	<if test="devid != null and devid != ''">
+  		and DevId = #{devid}
+  	</if>
+  	<if test="starttime != null and starttime != ''">
+  		and GetTime &gt; #{starttime}
+  	</if>
+  	<if test="endtime != null and endtime != ''">
+  		and GetTime &lt; #{endtime}
+  	</if>
+  </select>
+  
+  <!-- 查询没有状态的人员 -->
+  <select id="selectByRemark" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	 from PersonsRawData where Remark is null or Remark = ''
+  </select>
+  
+  <!-- 给状态赋值 -->
+  <update id="updateRemark" parameterType="com.sunjays.capl.entity.PersonsRawData">
+  	update PersonsRawData set Remark = #{remark} where Id = #{id}
+  </update>
+  
+    <!-- 查询需要统计的信息 -->
+  <select id="selectByFlag" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.PersonsRawData">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from PersonsRawData where flag = 0 and Name = #{name} 
+  	and GetTime = left (#{gettime},10)
+  </select>
+  
+  <!-- !表示已统计 -->
+  <update id="updateFlag" parameterType="java.lang.String">
+  	update PersonsRawData set flag = 1 where Name = #{name}
+  </update>
+  
+  <!-- 查询人员报警信息 -->
+  <select id="selectByWarnTime" resultMap="BaseResultMap" 
+  parameterType="com.sunjays.capl.entity.AttendanceTimeVo">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from PersonsRawData where 
+  	Remark = '工作区域之外'
+  	
+  	<if test="starttime != null and starttime != ''">
+  		and GetTime &gt; #{starttime}
+  	</if>
+  	
+  	<if test="stoptime != null and stoptime != ''">
+  		and GetTime &lt; #{stoptime}
+  	</if>
+  	
+  </select>
+  
+</mapper>

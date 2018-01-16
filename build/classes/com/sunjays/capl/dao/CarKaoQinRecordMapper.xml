@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.CarKaoQinRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.CarKaoQinRecord" >
+    <id column="ckqid" property="ckqid" jdbcType="BIGINT" />
+    <result column="carid" property="carid" jdbcType="INTEGER" />
+    <result column="shiji_worktime" property="shijiWorktime" jdbcType="REAL" />
+    <result column="kq_time" property="kqTime" jdbcType="TIMESTAMP" />
+    <result column="remark1" property="remark1" jdbcType="NVARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="NVARCHAR" />
+    <result column="flag" property="flag" jdbcType="NVARCHAR" />
+    <association property="vehicleInfo" javaType="com.sunjays.capl.entity.VehicleInfo">
+    	<id column="Id" property="id"/>
+		<result column="Vehicle" property="vehicle" />
+		<result column="Company" property="company"/>
+		<result column="OnTime" property="ontime"/>
+		<result column="OffTime" property="offtime"/>
+    </association>
+    <association property="zoneInfo" javaType="com.sunjays.capl.entity.ZoneInfo">
+    	<id column="Id" property="id"/>
+		<result column="Remark" property="remark" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ckqid, carid, shiji_worktime, kq_time, remark1, remark2, flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CarKaoQinRecord
+    where ckqid = #{ckqid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CarKaoQinRecord
+    where ckqid = #{ckqid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.CarKaoQinRecord" >
+    insert into CarKaoQinRecord (carid, shiji_worktime, 
+      kq_time, remark1, remark2, 
+      flag)
+    values (#{carid,jdbcType=INTEGER}, #{shijiWorktime,jdbcType=REAL}, 
+      #{kqTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=NVARCHAR}, #{remark2,jdbcType=NVARCHAR}, 
+      #{flag,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.CarKaoQinRecord" >
+    insert into CarKaoQinRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ckqid != null" >
+        ckqid,
+      </if>
+      <if test="carid != null" >
+        carid,
+      </if>
+      <if test="shijiWorktime != null" >
+        shiji_worktime,
+      </if>
+      <if test="kqTime != null" >
+        kq_time,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ckqid != null" >
+        #{ckqid,jdbcType=BIGINT},
+      </if>
+      <if test="carid != null" >
+        #{carid,jdbcType=INTEGER},
+      </if>
+      <if test="shijiWorktime != null" >
+        #{shijiWorktime,jdbcType=REAL},
+      </if>
+      <if test="kqTime != null" >
+        #{kqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.CarKaoQinRecord" >
+    update CarKaoQinRecord
+    <set >
+      <if test="carid != null" >
+        carid = #{carid,jdbcType=INTEGER},
+      </if>
+      <if test="shijiWorktime != null" >
+        shiji_worktime = #{shijiWorktime,jdbcType=REAL},
+      </if>
+      <if test="kqTime != null" >
+        kq_time = #{kqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ckqid = #{ckqid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.CarKaoQinRecord" >
+    update CarKaoQinRecord
+    set carid = #{carid,jdbcType=INTEGER},
+      shiji_worktime = #{shijiWorktime,jdbcType=REAL},
+      kq_time = #{kqTime,jdbcType=TIMESTAMP},
+      remark1 = #{remark1,jdbcType=NVARCHAR},
+      remark2 = #{remark2,jdbcType=NVARCHAR},
+      flag = #{flag,jdbcType=NVARCHAR}
+    where ckqid = #{ckqid,jdbcType=BIGINT}
+  </update>
+  <select id="selectCarRecordByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  SELECT v.Company company,v.OnTime ontime,v.OffTime offtime,v.Vehicle vehicle,
+  zi.Remark remark,shiji_worktime,c.ckqid,c.kq_time,
+  c.remark1 remark1,c.remark2 remark2 from CarKaoQinRecord c 
+	INNER JOIN VehicleInfo v on c.carid=v.Id 
+	INNER JOIN ZUClink zc ON zc.C_id=v.Id 
+	INNER JOIN ZoneInfo zi on zi.Id=zc.Z_id 
+    where 1=1
+    <if test="kqtime != null and kqtime !=''">
+        and c.kq_time = #{kqtime}
+    </if>
+    <if test="company != null and company != ''">
+       and v.Company=#{company}
+    </if>
+    <if test="perinfoname != null and perinfoname !=''">
+        and v.Vehicle = #{carinfoname}
+    </if>
+  </select>
+</mapper>

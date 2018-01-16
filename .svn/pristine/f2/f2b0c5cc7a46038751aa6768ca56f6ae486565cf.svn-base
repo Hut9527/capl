@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.SystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.SystemLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="requestIp" property="requestIp" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="exceptioncode" property="exceptioncode" jdbcType="NVARCHAR" />
+    <result column="exceptionDetail" property="exceptionDetail" jdbcType="NVARCHAR" />
+    <result column="createBy" property="createBy" jdbcType="NVARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="method" property="method" jdbcType="NVARCHAR" />
+    <result column="params" property="params" jdbcType="NVARCHAR" />
+    <result column="logType" property="logType" jdbcType="BIGINT" />
+    <result column="remarker" property="remarker" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, requestIp, description, exceptioncode, exceptionDetail, createBy, createDate, 
+    method, params, logType, remarker
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from SystemLog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from SystemLog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.SystemLog" >
+    insert into SystemLog (id, requestIp, description, 
+      exceptioncode, exceptionDetail, createBy, 
+      createDate, method, params, 
+      logType, remarker)
+    values (#{id,jdbcType=INTEGER}, #{requestIp,jdbcType=NVARCHAR}, #{description,jdbcType=NVARCHAR}, 
+      #{exceptioncode,jdbcType=NVARCHAR}, #{exceptionDetail,jdbcType=NVARCHAR}, #{createBy,jdbcType=NVARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{method,jdbcType=NVARCHAR}, #{params,jdbcType=NVARCHAR}, 
+      #{logType,jdbcType=BIGINT}, #{remarker,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.SystemLog" >
+    insert into SystemLog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="requestIp != null" >
+        requestIp,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="exceptioncode != null" >
+        exceptioncode,
+      </if>
+      <if test="exceptionDetail != null" >
+        exceptionDetail,
+      </if>
+      <if test="createBy != null" >
+        createBy,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+      <if test="logType != null" >
+        logType,
+      </if>
+      <if test="remarker != null" >
+        remarker,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requestIp != null" >
+        #{requestIp,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="exceptioncode != null" >
+        #{exceptioncode,jdbcType=NVARCHAR},
+      </if>
+      <if test="exceptionDetail != null" >
+        #{exceptionDetail,jdbcType=NVARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=NVARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=NVARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=NVARCHAR},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=BIGINT},
+      </if>
+      <if test="remarker != null" >
+        #{remarker,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.SystemLog" >
+    update SystemLog
+    <set >
+      <if test="requestIp != null" >
+        requestIp = #{requestIp,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="exceptioncode != null" >
+        exceptioncode = #{exceptioncode,jdbcType=NVARCHAR},
+      </if>
+      <if test="exceptionDetail != null" >
+        exceptionDetail = #{exceptionDetail,jdbcType=NVARCHAR},
+      </if>
+      <if test="createBy != null" >
+        createBy = #{createBy,jdbcType=NVARCHAR},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=NVARCHAR},
+      </if>
+      <if test="params != null" >
+        params = #{params,jdbcType=NVARCHAR},
+      </if>
+      <if test="logType != null" >
+        logType = #{logType,jdbcType=BIGINT},
+      </if>
+      <if test="remarker != null" >
+        remarker = #{remarker,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.SystemLog" >
+    update SystemLog
+    set requestIp = #{requestIp,jdbcType=NVARCHAR},
+      description = #{description,jdbcType=NVARCHAR},
+      exceptioncode = #{exceptioncode,jdbcType=NVARCHAR},
+      exceptionDetail = #{exceptionDetail,jdbcType=NVARCHAR},
+      createBy = #{createBy,jdbcType=NVARCHAR},
+      createDate = #{createDate,jdbcType=TIMESTAMP},
+      method = #{method,jdbcType=NVARCHAR},
+      params = #{params,jdbcType=NVARCHAR},
+      logType = #{logType,jdbcType=BIGINT},
+      remarker = #{remarker,jdbcType=NVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

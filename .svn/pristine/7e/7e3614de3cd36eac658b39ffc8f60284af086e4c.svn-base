@@ -1,0 +1,13 @@
+driverClass=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#shang xian yong
+jdbcUrl=jdbc:sqlserver://123.57.177.188:8899;DatabaseName=VehicleLocation
+user=admin_login
+password=admin.secret.64
+
+#connection pool settings
+jdbc.pool.maxIdle=10
+jdbc.pool.maxActive=200
+jdbc.pool.maxWait=10000
+jdbc.pool.initialSize=10
+jdbc.pool.validationQuery=select 1
+

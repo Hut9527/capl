@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.UserInfo" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="NVARCHAR" />
+    <result column="password" property="password" jdbcType="NVARCHAR" />
+    <result column="userUnitId" property="userunitid" jdbcType="INTEGER" />
+    <result column="roleId" property="roleid" jdbcType="INTEGER" />
+    <result column="tureName" property="turename" jdbcType="NVARCHAR" />
+    <result column="department" property="department" jdbcType="NVARCHAR" />
+    <result column="post" property="post" jdbcType="NVARCHAR" />
+    <result column="uuid" property="uuid" jdbcType="NVARCHAR" />
+    <result column="mac" property="mac" jdbcType="NVARCHAR" />
+    <result column="adress" property="adress" jdbcType="NVARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="NVARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="NVARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, userName, password, userUnitId, roleId, tureName, department, post, uuid, 
+    mac, adress, telephone, remark1, remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.UserInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from UserInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from UserInfo
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from UserInfo
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.UserInfoExample" >
+    delete from UserInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.UserInfo" >
+    insert into UserInfo (userName, password, 
+      userUnitId, roleId, tureName, 
+      department, post, uuid, 
+      mac, adress, telephone, 
+      remark1, remark2)
+    values (#{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{userunitid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{turename,jdbcType=NVARCHAR}, 
+      #{department,jdbcType=NVARCHAR}, #{post,jdbcType=NVARCHAR}, #{uuid,jdbcType=NVARCHAR}, 
+      #{mac,jdbcType=NVARCHAR}, #{adress,jdbcType=NVARCHAR}, #{telephone,jdbcType=NVARCHAR}, 
+      #{remark1,jdbcType=NVARCHAR}, #{remark2,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.UserInfo" >
+    insert into UserInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="userunitid != null" >
+        userUnitId,
+      </if>
+      <if test="roleid != null" >
+        roleId,
+      </if>
+      <if test="turename != null" >
+        tureName,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="post != null" >
+        post,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="mac != null" >
+        mac,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="userunitid != null" >
+        #{userunitid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="turename != null" >
+        #{turename,jdbcType=NVARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=NVARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=NVARCHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=NVARCHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=NVARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=NVARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from UserInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update UserInfo
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        userName = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.userunitid != null" >
+        userUnitId = #{record.userunitid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleid != null" >
+        roleId = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.turename != null" >
+        tureName = #{record.turename,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.post != null" >
+        post = #{record.post,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.mac != null" >
+        mac = #{record.mac,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.adress != null" >
+        adress = #{record.adress,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update UserInfo
+    set userId = #{record.userid,jdbcType=INTEGER},
+      userName = #{record.username,jdbcType=NVARCHAR},
+      password = #{record.password,jdbcType=NVARCHAR},
+      userUnitId = #{record.userunitid,jdbcType=INTEGER},
+      roleId = #{record.roleid,jdbcType=INTEGER},
+      tureName = #{record.turename,jdbcType=NVARCHAR},
+      department = #{record.department,jdbcType=NVARCHAR},
+      post = #{record.post,jdbcType=NVARCHAR},
+      uuid = #{record.uuid,jdbcType=NVARCHAR},
+      mac = #{record.mac,jdbcType=NVARCHAR},
+      adress = #{record.adress,jdbcType=NVARCHAR},
+      telephone = #{record.telephone,jdbcType=NVARCHAR},
+      remark1 = #{record.remark1,jdbcType=NVARCHAR},
+      remark2 = #{record.remark2,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.UserInfo" >
+    update UserInfo
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="userunitid != null" >
+        userUnitId = #{userunitid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="turename != null" >
+        tureName = #{turename,jdbcType=NVARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=NVARCHAR},
+      </if>
+      <if test="post != null" >
+        post = #{post,jdbcType=NVARCHAR},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=NVARCHAR},
+      </if>
+      <if test="mac != null" >
+        mac = #{mac,jdbcType=NVARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=NVARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.UserInfo" >
+    update UserInfo
+    set userName = #{username,jdbcType=NVARCHAR},
+      password = #{password,jdbcType=NVARCHAR},
+      userUnitId = #{userunitid,jdbcType=INTEGER},
+      roleId = #{roleid,jdbcType=INTEGER},
+      tureName = #{turename,jdbcType=NVARCHAR},
+      department = #{department,jdbcType=NVARCHAR},
+      post = #{post,jdbcType=NVARCHAR},
+      uuid = #{uuid,jdbcType=NVARCHAR},
+      mac = #{mac,jdbcType=NVARCHAR},
+      adress = #{adress,jdbcType=NVARCHAR},
+      telephone = #{telephone,jdbcType=NVARCHAR},
+      remark1 = #{remark1,jdbcType=NVARCHAR},
+      remark2 = #{remark2,jdbcType=NVARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

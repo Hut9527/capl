@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.CheckAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.CheckArea" >
+    <id column="wkid" property="wkid" jdbcType="INTEGER" />
+    <result column="unitpart" property="unitpart" jdbcType="NVARCHAR" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+    <result column="GPS1" property="gps1" jdbcType="NVARCHAR" />
+    <result column="GPS2" property="gps2" jdbcType="NVARCHAR" />
+    <result column="GPS3" property="gps3" jdbcType="NVARCHAR" />
+    <result column="GPS4" property="gps4" jdbcType="NVARCHAR" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="NVARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    wkid, unitpart, creattime, GPS1, GPS2, GPS3, GPS4, remark, remark1, flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.CheckAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from CheckArea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from CheckArea
+    where wkid = #{wkid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from CheckArea
+    where wkid = #{wkid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.CheckAreaExample" >
+    delete from CheckArea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.CheckArea" >
+    insert into CheckArea (wkid, unitpart, creattime, 
+      GPS1, GPS2, GPS3, 
+      GPS4, remark, remark1, 
+      flag)
+    values (#{wkid,jdbcType=INTEGER}, #{unitpart,jdbcType=NVARCHAR}, #{creattime,jdbcType=TIMESTAMP}, 
+      #{gps1,jdbcType=NVARCHAR}, #{gps2,jdbcType=NVARCHAR}, #{gps3,jdbcType=NVARCHAR}, 
+      #{gps4,jdbcType=NVARCHAR}, #{remark,jdbcType=NVARCHAR}, #{remark1,jdbcType=NVARCHAR}, 
+      #{flag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.CheckArea" >
+    insert into CheckArea
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wkid != null" >
+        wkid,
+      </if>
+      <if test="unitpart != null" >
+        unitpart,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+      <if test="gps1 != null" >
+        GPS1,
+      </if>
+      <if test="gps2 != null" >
+        GPS2,
+      </if>
+      <if test="gps3 != null" >
+        GPS3,
+      </if>
+      <if test="gps4 != null" >
+        GPS4,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wkid != null" >
+        #{wkid,jdbcType=INTEGER},
+      </if>
+      <if test="unitpart != null" >
+        #{unitpart,jdbcType=NVARCHAR},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gps1 != null" >
+        #{gps1,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps2 != null" >
+        #{gps2,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps3 != null" >
+        #{gps3,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps4 != null" >
+        #{gps4,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.CheckAreaExample" resultType="java.lang.Integer" >
+    select count(*) from CheckArea
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CheckArea
+    <set >
+      <if test="record.wkid != null" >
+        wkid = #{record.wkid,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitpart != null" >
+        unitpart = #{record.unitpart,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.creattime != null" >
+        creattime = #{record.creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gps1 != null" >
+        GPS1 = #{record.gps1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.gps2 != null" >
+        GPS2 = #{record.gps2,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.gps3 != null" >
+        GPS3 = #{record.gps3,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.gps4 != null" >
+        GPS4 = #{record.gps4,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CheckArea
+    set wkid = #{record.wkid,jdbcType=INTEGER},
+      unitpart = #{record.unitpart,jdbcType=NVARCHAR},
+      creattime = #{record.creattime,jdbcType=TIMESTAMP},
+      GPS1 = #{record.gps1,jdbcType=NVARCHAR},
+      GPS2 = #{record.gps2,jdbcType=NVARCHAR},
+      GPS3 = #{record.gps3,jdbcType=NVARCHAR},
+      GPS4 = #{record.gps4,jdbcType=NVARCHAR},
+      remark = #{record.remark,jdbcType=NVARCHAR},
+      remark1 = #{record.remark1,jdbcType=NVARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.CheckArea" >
+    update CheckArea
+    <set >
+      <if test="unitpart != null" >
+        unitpart = #{unitpart,jdbcType=NVARCHAR},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gps1 != null" >
+        GPS1 = #{gps1,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps2 != null" >
+        GPS2 = #{gps2,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps3 != null" >
+        GPS3 = #{gps3,jdbcType=NVARCHAR},
+      </if>
+      <if test="gps4 != null" >
+        GPS4 = #{gps4,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where wkid = #{wkid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.CheckArea" >
+    update CheckArea
+    set unitpart = #{unitpart,jdbcType=NVARCHAR},
+      creattime = #{creattime,jdbcType=TIMESTAMP},
+      GPS1 = #{gps1,jdbcType=NVARCHAR},
+      GPS2 = #{gps2,jdbcType=NVARCHAR},
+      GPS3 = #{gps3,jdbcType=NVARCHAR},
+      GPS4 = #{gps4,jdbcType=NVARCHAR},
+      remark = #{remark,jdbcType=NVARCHAR},
+      remark1 = #{remark1,jdbcType=NVARCHAR},
+      flag = #{flag,jdbcType=INTEGER}
+    where wkid = #{wkid,jdbcType=INTEGER}
+  </update>
+</mapper>

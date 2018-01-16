@@ -1,0 +1,179 @@
+package com.sunjays.capl.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sunjays.capl.dao.VehicleRawDataMapper;
+import com.sunjays.capl.entity.AttendanceTimeVo;
+import com.sunjays.capl.entity.VehicleInfo;
+import com.sunjays.capl.entity.VehicleRawData;
+import com.sunjays.capl.entity.VehicleRawDataExample;
+import com.sunjays.capl.entity.VehicleVo;
+import com.sunjays.capl.service.VehicleRawDataService;
+@Service
+public class VehicleRawDataServiceImpl implements VehicleRawDataService {
+
+	@Autowired
+	private VehicleRawDataMapper vahicleRawDataMapper;
+
+	@Override
+	public int countByExample(VehicleRawDataExample example) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.countByExample(example);
+	}
+
+	@Override
+	public int deleteByExample(VehicleRawDataExample example) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.deleteByExample(example);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(VehicleRawData record) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(VehicleRawData record) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.insertSelective(record);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByExample(VehicleRawDataExample example) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByExample(example);
+	}
+
+	@Override
+	public VehicleRawData selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByExampleSelective(VehicleRawData record, VehicleRawDataExample example) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.updateByExampleSelective(record, example);
+	}
+
+	@Override
+	public int updateByExample(VehicleRawData record, VehicleRawDataExample example) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.updateByExample(record, example);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(VehicleRawData record) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(VehicleRawData record) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByLastTime() {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByLastTime();
+	}
+
+	@Override
+	public List<VehicleRawData> selectAll(String time) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectAll(time);
+	}
+
+	@Override
+	public VehicleRawData selectByDevId(String DevId) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByDevId(DevId);
+	}
+
+	@Override
+	public VehicleRawData selectByVehicle(VehicleInfo vehicleInfo) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByVehicle(vehicleInfo);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByLike(VehicleInfo vehicleInfo) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByLike(vehicleInfo);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByLastLike(VehicleInfo vehicleInfo) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByLastLike(vehicleInfo);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByVo(VehicleVo vo) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByVo(vo);
+	}
+
+	@Override
+	public VehicleRawData selectByVeh(VehicleInfo vehicleInfo) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByVeh(vehicleInfo);
+	}
+
+	@Override
+	public VehicleRawData selectByLastVeh(String veh) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByLastVeh(veh);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByRemark() {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByRemark();
+	}
+
+	@Override
+	public void updateRemark(VehicleRawData veh) {
+		// TODO Auto-generated method stub
+		vahicleRawDataMapper.updateRemark(veh);
+	}
+
+	@Override
+	public List<VehicleRawData> selectByFlag(VehicleRawData veh) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByFlag(veh);
+	}
+
+	@Override
+	public void updateFlag(String vehicle) {
+		// TODO Auto-generated method stub
+		vahicleRawDataMapper.updateFlag(vehicle);
+	}
+
+	@Override
+	public Date selectByLastGetTime() {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByLastGetTime();
+	}
+
+	@Override
+	public List<VehicleRawData> selectByWarnTime(AttendanceTimeVo time) {
+		// TODO Auto-generated method stub
+		return vahicleRawDataMapper.selectByWarnTime(time);
+	}
+	
+	
+}

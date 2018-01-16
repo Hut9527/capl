@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sunjays.capl.dao.UserAttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.sunjays.capl.entity.UserAttendance" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="UId" property="uid" jdbcType="INTEGER" />
+    <result column="CurveTime" property="curvetime" jdbcType="NVARCHAR" />
+    <result column="Attendance" property="attendance" jdbcType="VARCHAR" />
+    <result column="WorkTime" property="worktime" jdbcType="NVARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="NVARCHAR" />
+    <result column="Company" property="company" jdbcType="NVARCHAR" />
+    <result column="JobNumber" property="jobnumber" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, UId, CurveTime, Attendance, WorkTime, Remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sunjays.capl.entity.UserAttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from UserAttendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from UserAttendance
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from UserAttendance
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sunjays.capl.entity.UserAttendanceExample" >
+    delete from UserAttendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sunjays.capl.entity.UserAttendance" >
+    insert into UserAttendance (Id, UId, CurveTime, 
+      Attendance, WorkTime, Remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{curvetime,jdbcType=NVARCHAR}, 
+      #{attendance,jdbcType=VARCHAR}, #{worktime,jdbcType=NVARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sunjays.capl.entity.UserAttendance" >
+    insert into UserAttendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="uid != null" >
+        UId,
+      </if>
+      <if test="curvetime != null" >
+        CurveTime,
+      </if>
+      <if test="attendance != null" >
+        Attendance,
+      </if>
+      <if test="worktime != null" >
+        WorkTime,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="curvetime != null" >
+        #{curvetime,jdbcType=NVARCHAR},
+      </if>
+      <if test="attendance != null" >
+        #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="worktime != null" >
+        #{worktime,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sunjays.capl.entity.UserAttendanceExample" resultType="java.lang.Integer" >
+    select count(*) from UserAttendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update UserAttendance
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        UId = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.curvetime != null" >
+        CurveTime = #{record.curvetime,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.attendance != null" >
+        Attendance = #{record.attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.worktime != null" >
+        WorkTime = #{record.worktime,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update UserAttendance
+    set Id = #{record.id,jdbcType=INTEGER},
+      UId = #{record.uid,jdbcType=INTEGER},
+      CurveTime = #{record.curvetime,jdbcType=NVARCHAR},
+      Attendance = #{record.attendance,jdbcType=VARCHAR},
+      WorkTime = #{record.worktime,jdbcType=NVARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sunjays.capl.entity.UserAttendance" >
+    update UserAttendance
+    <set >
+      <if test="uid != null" >
+        UId = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="curvetime != null" >
+        CurveTime = #{curvetime,jdbcType=NVARCHAR},
+      </if>
+      <if test="attendance != null" >
+        Attendance = #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="worktime != null" >
+        WorkTime = #{worktime,jdbcType=NVARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sunjays.capl.entity.UserAttendance" >
+    update UserAttendance
+    set UId = #{uid,jdbcType=INTEGER},
+      CurveTime = #{curvetime,jdbcType=NVARCHAR},
+      Attendance = #{attendance,jdbcType=VARCHAR},
+      WorkTime = #{worktime,jdbcType=NVARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据时间查询所有数据 -->
+  <select id="selectByTime" parameterType="com.sunjays.capl.entity.AttendanceTimeVo"
+  resultMap="BaseResultMap">
+  	
+  	select a.Id,a.UId,b.Name,b.Company,b.JobNumber
+  	,a.CurveTime,a.Attendance,a.WorkTime,a.Remark
+  	from UserAttendance a,PersonsInfo b
+  	where 1=1
+  	
+  	<if test="starttime != null and starttime != ''">
+  		and left(a.CurveTime,10) &gt;= #{starttime}
+  	</if>
+  	
+  	<if test="stoptime != null and stoptime != ''">
+  		and right(a.CurveTime,10) &lt;= #{stoptime}
+  	</if>
+  	
+  	<if test="year != null and year != ''">
+  		and left(a.CurveTime,4) = #{year}
+  	</if>
+  	
+  	<if test="yearmonthly != null and yearmonthly != ''">
+  		and left(a.CurveTime,7) = #{yearmonthly}
+  	</if>
+  	
+  	<if test="qoq != null and qoq != ''">
+  		and left(a.CurveTime,7) = #{m1} 
+  		or left(a.CurveTime,7) = #{m2}
+  		or left(a.CurveTime,7) = #{m3}
+  	</if>
+  	
+  	and a.UId = b.Id
+  </select>
+  
+  <!-- 查询重复违章段(1) -->
+  <select id="selectByViolat1" parameterType="com.sunjays.capl.entity.AttendanceTimeVo"
+  resultMap="BaseResultMap">
+  	select top 1 left(CurveTime,10) as CurveTime,count(Id) as Id 
+  	from UserAttendance where Attendance != '正常'
+  	
+  	<if test="starttime != null and starttime != ''">
+  		and left(CurveTime,10) &gt;= #{starttime}
+  	</if>
+  	
+  	<if test="stoptime != null and stoptime != ''">
+  		and right(CurveTime,10) &lt;= #{stoptime}
+  	</if>
+  	
+  	<if test="year != null and year != ''">
+  		and left(CurveTime,4) = #{year}
+  	</if>
+  	
+  	<if test="yearmonthly != null and yearmonthly != ''">
+  		and left(CurveTime,7) = #{yearmonthly}
+  	</if>
+  	
+  	<if test="qoq != null and qoq != ''">
+  		and left(CurveTime,7) = #{m1} 
+  		or left(CurveTime,7) = #{m2}
+  		or left(CurveTime,7) = #{m3}
+  	</if>
+  	
+  	GROUP BY left(CurveTime,10) ORDER BY Id desc
+  </select>
+  
+  <!-- 查询重复违章段(2) -->
+  <select id="selectByViolat2" parameterType="com.sunjays.capl.entity.AttendanceTimeVo" 
+  resultMap="BaseResultMap">
+  	select CurveTime,WorkTime from UserAttendance where Attendance != '正常'
+  	
+  	<if test="starttime != null and starttime != ''">
+  		and left(CurveTime,10) &gt;= #{starttime}
+  	</if>
+  	
+  	<if test="stoptime != null and stoptime != ''">
+  		and right(CurveTime,10) &lt;= #{stoptime}
+  	</if>
+  	
+  	<if test="year != null and year != ''">
+  		and left(CurveTime,4) = #{year}
+  	</if>
+  	
+  	<if test="yearmonthly != null and yearmonthly != ''">
+  		and left(CurveTime,7) = #{yearmonthly}
+  	</if>
+  	
+  	<if test="violattime != null and violattime != ''">
+  		and left(CurveTime,10) = #{violattime}
+  	</if>
+  	
+  	<if test="qoq != null and qoq != ''">
+  		and left(CurveTime,7) = #{m1} 
+  		or left(CurveTime,7) = #{m2}
+  		or left(CurveTime,7) = #{m3}
+  	</if>
+  	
+  	ORDER BY right(CurveTime,10)
+  	
+  </select>
+  
+  <!-- 查询违章类型重复最高 -->
+  <select id="selectByViolatdate" parameterType="com.sunjays.capl.entity.AttendanceTimeVo"
+  resultType="java.lang.String">
+  	
+  	select top 1 Attendance from UserAttendance
+  	where Attendance != '正常'
+  	
+  	<if test="starttime != null and starttime != ''">
+  		and left(CurveTime,10) &gt;= #{starttime}
+  	</if>
+  	
+  	<if test="stoptime != null and stoptime != ''">
+  		and right(CurveTime,10) &lt;= #{stoptime}
+  	</if>
+  	
+  	<if test="year != null and year != ''">
+  		and left(CurveTime,4) = #{year}
+  	</if>
+  	
+  	<if test="yearmonthly != null and yearmonthly != ''">
+  		and left(CurveTime,7) = #{yearmonthly}
+  	</if>
+  	
+  	<if test="qoq != null and qoq != ''">
+  		and left(CurveTime,7) = #{m1} 
+  		or left(CurveTime,7) = #{m2}
+  		or left(CurveTime,7) = #{m3}
+  	</if>
+  	
+  	GROUP BY Attendance
+  	
+  </select>
+  
+</mapper>
